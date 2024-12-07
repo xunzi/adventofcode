@@ -23,11 +23,6 @@ if args.test:
 else:
     infilename = f"input/day{args.day}"
 
-color_dict = {
-    'red': 0,
-    'green': 0,
-    'blue': 0
-    }
 
 def split_game_runs(line):
     game, runs = line.split(':')
@@ -43,6 +38,25 @@ def check_colorcounter(run):
         if int(m[0]) > max_vals[m[1]]:
             res = False
     return res
+
+
+def find_highest_color_value(run):
+    color_dict = {
+    }
+    pattern = re.compile(r'\s*(\d+)\s(\w+)')
+    match = pattern.findall(run)
+    for m in match:
+        ccount = color_dict.get(m[1], int(m[0]))
+        if int(m[0]) > int(ccount):
+            color_dict[m[1]] = int(m[0])
+    return color_dict
+
+def product(color_dict):
+    ret = 1
+    for k in color_dict.keys():
+        if color_dict[k] != 0:
+            ret *= color_dict[k]
+    return ret
 
 
 if __name__ == "__main__":
@@ -64,4 +78,16 @@ if __name__ == "__main__":
             print(gamesum)
 
         case "2":
-            pass
+            with open(infilename) as infile:
+                for line in infile.readlines():
+                    gamecolors = split_game_runs(line.strip())
+                    for game, runs in gamecolors.items():
+                        for run in runs:
+                            colors = find_highest_color_value(run)
+                            print(run)
+                            print(colors)
+                            p = product(colors)
+                            print(p)
+                            gamesum += p
+            print(gamesum)
+                            
