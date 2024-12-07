@@ -2,7 +2,6 @@ package main
 
 import (
 	"bufio"
-	"fmt"
 	"os"
 	"strconv"
 	"strings"
@@ -88,8 +87,8 @@ func applyDampener(report []int) bool {
 	for i, _ := range report {
 		reducedReport := removeIndex(report, i)
 		if verifyReport(reducedReport) {
-			fmt.Println(report, reducedReport, "true")
-			ret = true
+			//fmt.Println(report, reducedReport, verifyReport(reducedReport))
+			return true
 		}
 	}
 	return ret

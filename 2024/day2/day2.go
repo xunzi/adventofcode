@@ -18,12 +18,15 @@ func main() {
 	intReports := createReports(strReports)
 	//fmt.Printf("%v", intReports)
 	for _, rep := range intReports {
-		//fmt.Println(rep, verifyReportIncDec(rep))
+		//fmt.Println(rep, verifyReport(rep))
 		if verifyReport(rep) {
 			safeCount += 1
 			continue
 		}
 		fmt.Println(rep, applyDampener(rep))
+		if applyDampener(rep) {
+			safeCount += 1
+		}
 	}
 	fmt.Println("Part 1", safeCount)
 }
